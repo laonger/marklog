@@ -1,0 +1,14 @@
+#article {
+   font-size: 12pt;
+}
+
+#article h1 {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+#article pre {
+    font-size: 10pt;
+    border-width: 1px;
+    border-style: dashed;
+}
