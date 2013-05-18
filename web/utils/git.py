@@ -8,32 +8,19 @@ last_commit = 'b8c4e2996f910192331eca04efaac1d924e12004'
 
 # ::版本号::时间戳::短版本号::作者::note
 COMMIT_INFO_CMD = 'cd articles && git pull && git log --name-only --pretty=format:aa--aa%n::%H::%ct::%h::%cn::%s%n====%n'
+#COMMIT_INFO_CMD = 'cd articles && git log --name-only --pretty=format:aa--aa%n::%H::%ct::%h::%cn::%s%n====%n'
 
-def new_commits():
-    """# a: docstring
-    args:
-        :    ---    arg
-    returns:
-        0    ---    
-    """
-    output_obj = os.popen(COMMIT_INFO_CMD)
-    output = output_obj.read()
-    new_commit_str = output.split(last_commit)[0].rstrip('::')
-    new_commit_list = [i.strip('\n') for i in new_commit_str.split('aa--aa') if i.startswith('\n::')]
-
-    result = []
-    for c in new_commit_list:
-        info = commit_info(c)
-        result.append(info)
-    return result
-
-def get_all_commit_info():
+def get_all_commit_info(last_commit_version=''):
     """# get_all_conmit_info: docstring
     args:
         :    ---    arg
     returns:
         0    ---    
     """
+    if last_commit_version:
+        cmd = COMMIT_INFO_CMD + ' ' + last_commit_version + '..'
+    else:
+        cmd = COMMIT_INFO_CMD
     output_obj = os.popen(COMMIT_INFO_CMD)
     new_commit_str = output_obj.read()
     new_commit_list = [i.strip('\n') for i in new_commit_str.split('aa--aa') if i.startswith('\n::')]
@@ -70,10 +57,21 @@ def get_commit_info(commit_version_long):
     returns:
         0    ---    
     """
-    cmd = 'cd articles && git log --name-only --pretty=format:aa--aa%n::%H::%ct::%h::%cn::%s%n====%n ' + commit_version_long + ' ' + commit_version_long
+    cmd = COMMIT_INFO_CMD.replace(' log ', ' show ') + ' ' + commit_version_long
     commit_str = os.popen(cmd).read()
-    #print commit_str
     return commit_info(commit_str)
+
+def has_new():
+    """# has_new: docstring
+    args:
+        arg:    ---    arg
+    returns:
+        0    ---    
+    """
+    cmd = 'cd articles && git pull'
+    result = os.popen(cmd).read()
+    return u'Already up-to-date.' not in result
+    
 
 if __name__ == '__main__':
     #a()

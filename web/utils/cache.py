@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import os
+import sys
 import time
 
 import file_system
@@ -17,7 +18,7 @@ ARTICLE_CACHE_TEMPLATE  = """
     <div id='content'>{content}</div>
 """
 
-def article_html(file_name, merge_data):
+def article_html(file_name, origin_dir, merge_data):
     """# make_info: docstring
     args:
         file_name:    ---    arg
@@ -29,6 +30,10 @@ def article_html(file_name, merge_data):
     file.close()
     text = unicode(text, 'utf-8')
     html = md.convert(text)
+
+    html = html.replace('src="pics/', 'src="static/cache/%s/pics/'%origin_dir)
+    html = html.replace('href="pics/', 'href="static/cache/%s/pics/'%origin_dir)
+    html = html.replace('href="files/', 'href="static/cache/%s/files/'%origin_dir)
 
     tittle, content = html.split('</h1>', 1)
     tittle = tittle.lstrip('<h1>')
@@ -42,6 +47,9 @@ def article_html(file_name, merge_data):
     first_10 = text.replace('\r', '').strip('\n').split('\n')[:10]
     first_10_html = md.convert('\n'.join(first_10))
     first_10_html = first_10_html.split('</h1>', 1)[1]
+    first_10_html = first_10_html.replace('src="pics/', 'src="static/cache/%s/pics/'%origin_dir)
+    first_10_html = first_10_html.replace('href="pics/', 'href="static/cache/%s/pics/'%origin_dir)
+    first_10_html = first_10_html.replace('href="files/', 'href="static/cache/%s/files/'%origin_dir)
 
     merge_data.update({
         'tittle': 'tittle--tittle',
@@ -77,6 +85,7 @@ def cache_one(commit_info):
     article_key = commit_info[5]
 
     article_info = article_html(mark_down_file, 
+        commit_info[5],
         {
             'commit_time': time.ctime(float(commit_info[1])),
         }
@@ -86,7 +95,8 @@ def cache_one(commit_info):
         'first_10_html': article_info['first_10_html'],
         'tittle': article_info['article_tittle'],
         'commit_time': commit_info[1],
-        'article_short_version': commit_info[2],
+        'short_version': commit_info[2],
+        'version': commit_info[2],
         'article_key': article_key,
         'author_name': commit_info[3],
         'author': commit_info[3],
@@ -118,33 +128,80 @@ def cache_one(commit_info):
     html_cache_file.close()
     return cache
 
-def cache_all():
+def cache_all(increase=False):
     """# refresh_all: docstring
     args:
         :    ---    arg
     returns:
         0    ---    
     """
-    file_system.rm_dir(file_system.CACHE_PATH)
-    file_system.mkdir(file_system.CACHE_PATH)
-    all_commit_info = git.get_all_commit_info()
+    cache_sum = {}
+    last_commit_version = ''
+    if not increase:
+        file_system.rm_dir(file_system.CACHE_PATH)
+        file_system.mkdir(file_system.CACHE_PATH)
+        mark_file = open(file_system.CACHE_MARK_FILE, 'w')
+        mark_file.write('1')
+        mark_file.close()
+    else:
+        import cache_sum
+        last_commit_version = cache_sum.last_version
+        cache_sum = cache_sum.cache_sum
+        del sys.modules['cache_sum']
+
+    all_commit_info = git.get_all_commit_info(last_commit_version)
     all_commit_info.reverse()
-    result_dict = {}
-    result_key_list = []
     for c_info in all_commit_info:
         cache = cache_one(c_info)
-        result_dict[cache['article_key']] = cache
+        cache_sum[cache['article_key']] = cache
+
     cache_file = open(file_system.CACHE_SUM, 'w')
-    cache_file.write('cache_sum = '+str(result_dict))
+    cache_file.write('cache_sum = '+str(cache_sum))
 
     cache_file.write('\n\n')
 
-    result_key_list = result_dict.keys()
-    result_key_list.sort(key=lambda x: float(result_dict[x]['commit_time']), reverse=True)
-    cache_file.write('cache_key = '+str(result_key_list))
+    result_key_list = cache_sum.keys()
+    result_key_list.sort(key=lambda x: float(cache_sum[x]['commit_time']), reverse=True)
+    cache_file.write('cache_key = %s'%str(result_key_list))
+    cache_file.write('\n\n')
+    cache_file.write('last_version = "%s"'%cache_sum[result_key_list[0]]['version'])
 
     cache_file.close()
+
+def mark():
+    """# get_mark: 获得cache访问计数器的值，并且将其＋1
+    args:
+        :    ---    arg
+    returns:
+        0    ---    
+    """
+    try:
+        file = open(file_system.CACHE_MARK_FILE, 'r')
+    except IOError:
+        mark = 0
+    else:
+        mark = int(file.readlines()[0].replace('\n', ''))
+        file.close()
+    mark += 1
+    file = open(file_system.CACHE_MARK_FILE, 'w')
+    file.write(str(mark)+'\n')
+    file.close()
+    return mark
+
+def auto_fresh():
+    """# auto_fresh: 自动刷新cach
+    args:
+        :    ---    arg
+    returns:
+        0    ---    
+    """
+    mark_v = mark()
+    if (not mark_v % 3) and git.has_new():
+        cache_all(increase=True)
+
+
     
 if __name__ == '__main__':
     #print cache_one(git.get_commit_info('b8c4e2996f910192331eca04efaac1d924e12004'))
     cache_all()
+    #auto_fresh()

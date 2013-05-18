@@ -12,7 +12,8 @@ import md5
 
 import web
 
-from utils import pages
+from utils import cache
+from utils import file_system
 
 from markdown import Markdown
 md = Markdown()
@@ -20,12 +21,13 @@ md = Markdown()
 web.config.debug = True
 
 urls = (
-    "/(.*)/", 'Redirect',   
+    "/(.*)/", 'SeeOther',   
+    #"/pics/(.*)", 'Redirect',
     "/", "Index",
     "/article", "Article",
 )
 
-class Redirect(object):
+class SeeOther(object):
     def GET(self, path):
         """# GET: docstring
         args:
@@ -35,6 +37,16 @@ class Redirect(object):
         """
         web.seeother("/"+path)
 
+class Redirect(object):
+    """# Redirect: docstring"""
+    def GET(self, path):
+        """# GET: docstring
+        args:
+            path:    ---    arg
+        returns:
+            0    ---    
+        """
+        web.redirect("/"+path)
 
 
 def result_html(file_name, css_file, data):
@@ -61,6 +73,7 @@ def result_html(file_name, css_file, data):
         
 class Index(object):
     def GET(self):
+        cache.auto_fresh()
         if 'cache_sum' in  sys.modules:
             del sys.modules['cache_sum']
         import cache_sum
@@ -89,11 +102,13 @@ class Index(object):
 
 class Article(object):
     def GET(self, ):
-        file = open('./articles/video_glass/main.mdown', 'r')
-        text = file.read()
-        file.close()
-        text = unicode(text, 'utf-8')
-        data = md.convert(text)
+        params = web.input()
+        article_key = params.a
+
+        f = open(file_system.CACHE_PATH + article_key + '/html', 'r')
+        data = f.read()
+        f.close()
+
         return result_html(
             './templates/article.html',
             'article.css',

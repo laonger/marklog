@@ -19,6 +19,7 @@ ARTICLE_PIC = 'pics'
 ARTICLE_FILES = 'files'
 
 CACHE_PATH = STATIC_PATH + 'cache' + os.sep
+CACHE_MARK_FILE = CACHE_PATH + 'cache_mark'
 CACHE_SUM = BASE_ROOT + 'cache_sum.py'
 
 def mkdir(path_str):
