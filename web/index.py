@@ -66,6 +66,7 @@ def result_html(file_name, css_file, data):
 
     content = content.format(**data)
 
+    web.header('Content-Type', 'text/html')
     return common.format(**{
         'content': content,
         'css_file': css_file if css_file else 'common.css',
@@ -91,7 +92,7 @@ class Index(object):
             result.append(
                 '<div class="article_short">'+ first_10_html + '</div><div class="cutline"></div>'
             )
-
+        
         return result_html(
             './templates/index.html',
             '',
