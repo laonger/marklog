@@ -37,17 +37,16 @@ class SeeOther(object):
         """
         web.seeother("/"+path)
 
-class Redirect(object):
-    """# Redirect: docstring"""
-    def GET(self, path):
-        """# GET: docstring
-        args:
-            path:    ---    arg
-        returns:
-            0    ---    
-        """
-        web.redirect("/"+path)
-
+def replace(str, data):
+    """# replace: docstring
+    args:
+        str, data:    ---    arg
+    returns:
+        0    ---    
+    """
+    for k, v in data.iteritems():
+        str = str.replace('{$%s$}'%k, v)
+    return str
 
 def result_html(file_name, css_file, data):
     """# make_html: docstring
@@ -64,10 +63,10 @@ def result_html(file_name, css_file, data):
     content = unicode(template.read(), 'utf-8')
     template.close()
 
-    content = content.format(**data)
+    content = replace(content, data)
 
     web.header('Content-Type', 'text/html')
-    return common.format(**{
+    return replace(common, {
         'content': content,
         'css_file': css_file if css_file else 'common.css',
     })
