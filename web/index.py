@@ -65,11 +65,11 @@ def result_html(file_name, css_file, data):
 
     content = replace(content, data)
 
-    web.header('Content-Type', 'text/html')
+    web.header('Content-Type', 'text/html; charset=UTF-8')
     return replace(common, {
         'content': content,
         'css_file': css_file if css_file else 'common.css',
-    })
+    }).encode('utf-8')
         
 class Index(object):
     def GET(self):

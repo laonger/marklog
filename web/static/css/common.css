@@ -25,6 +25,14 @@ pre {
     height: 170px;
 }
 
+#banner a:link {
+    color: yellow;
+}
+
+#banner a:visited {
+    color: yellow;
+}
+
 #blog_name {
     padding-top: 25px;
     padding-left: 100px;
