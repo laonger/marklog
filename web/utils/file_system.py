@@ -41,7 +41,7 @@ def ln(source_path, target_path):
     returns:
         0    ---    
     """
-    os.symlink(source_path+'/', target_path)
+    os.symlink(source_path, target_path)
 
 def rm_dir(dir):
     """# rm_dir: docstring
