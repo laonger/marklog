@@ -89,7 +89,7 @@ class Index(object):
                 )
             )
             result.append(
-                '<div class="article_short">'+ first_10_html + '</div><div class="cutline"></div>'
+                '<div class="article_short">'+ first_10_html + '</div><div id="readmore"><a href="article?a=%s">read more....</a></div><div class="cutline"></div>'%info['article_key']
             )
         
         return result_html(
