@@ -4,7 +4,6 @@
 import os
 import file_system
 
-last_commit = 'b8c4e2996f910192331eca04efaac1d924e12004'
 
 # ::版本号::时间戳::短版本号::作者::note
 COMMIT_INFO_CMD = 'cd articles && git pull && git log --name-only --pretty=format:aa--aa%n::%H::%ct::%h::%cn::%s%n====%n'

@@ -13,9 +13,9 @@ from markdown import Markdown
 md = Markdown()
 
 ARTICLE_CACHE_TEMPLATE  = """
-    <div id='tittle'><h1>{tittle}</h1></div>
+    <div class='tittle'><h1>{tittle}</h1></div>
     <p id='post_time'>{commit_time}</p>
-    <div id='content'>{content}</div>
+    <div class='article_short'>{content}</div>
 """
 
 def article_html(file_name, origin_dir, merge_data):
