@@ -8,13 +8,11 @@ Install
 
 upload web to host.
 
-`
-cd web
+    cd web
 
-git clone [article git repository address] ./articles
+    git clone [article git repository address] ./articles
 
-python ./utils/cache.py
-`
+    python ./utils/cache.py
 
 to test, run
 
