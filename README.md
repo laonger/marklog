@@ -1,7 +1,7 @@
 marklog
 =======
 
-write blog with markdown, commit articles by git.
+write blog with markdown, commit articles by git, no database.
 
 Install
 =======
