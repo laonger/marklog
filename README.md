@@ -12,10 +12,13 @@ upload web to host.
 
     git clone [article git repository address] ./articles
 
-    python ./utils/cache.py
+    python ./lib/cache.py
 
 to test, run
 
 `python index.py`
 
 and open: http://0.0.0.0:8081
+
+
+

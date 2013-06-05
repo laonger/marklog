@@ -39,7 +39,6 @@ def commit_info(commit_str):
         ('3993a60f52c35ded2732fbf94fe2981e4d98cac7', '1368116966', '3993a60', 'la.onger', 'test\n', 'video_glass')
     """
     commit_str = commit_str.strip('aa--aa\n')
-#    print '#'*36, commit_str
     info_str, file_str = commit_str.split('====')
     info_list = info_str.strip('::').split('::')
 

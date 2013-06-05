@@ -12,8 +12,8 @@ import md5
 
 import web
 
-from utils import cache
-from utils import file_system
+from lib import cache
+from lib import file_system
 
 from markdown import Markdown
 md = Markdown()
@@ -22,7 +22,6 @@ web.config.debug = True
 
 urls = (
     "/(.*)/", 'SeeOther',   
-    #"/pics/(.*)", 'Redirect',
     "/", "Index",
     "/article", "Article",
 )

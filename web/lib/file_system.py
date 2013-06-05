@@ -4,23 +4,7 @@
 import os
 import sys
 
-reload(sys) 
-sys.setdefaultencoding('utf8')
-
-SEP = os.path.sep
-
-BASE_ROOT = os.path.dirname(os.path.abspath(__file__)) + os.sep + os.pardir + SEP
-
-STATIC_PATH = BASE_ROOT + 'static' + os.sep
-
-ARTICLE_PATH = BASE_ROOT + 'articles' + os.sep
-ARTICLE_MAIN_FILE = 'main.mdown'
-ARTICLE_PIC = 'pics'
-ARTICLE_FILES = 'files'
-
-CACHE_PATH = STATIC_PATH + 'cache' + os.sep
-CACHE_MARK_FILE = CACHE_PATH + 'cache_mark'
-CACHE_SUM = BASE_ROOT + 'cache_sum.py'
+from settings import *
 
 def mkdir(path_str):
     """# mkdir: docstring
