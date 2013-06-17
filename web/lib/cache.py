@@ -18,6 +18,39 @@ ARTICLE_CACHE_TEMPLATE  = """
     <div class='article_short'>{content}</div>
 """
 
+def change_pic_file_url(text):
+    """# change_pic_file_url: 将html中的图片和附件路径替换成服务器上的路径
+    args:
+        text:    ---    arg
+    returns:
+        0    ---    
+    """
+    text = text.replace('src="pics/', ''.join(['src="', 
+                                              file_system.CACHE_PATH, 
+                                              origin_dir, 
+                                              file_system.SEP, 
+                                              file_system.ARTICLE_PIC, 
+                                              file_system.SEP
+                                              ])
+                       )
+    text = text.replace('src="pics/', ''.join(['href="',
+                                              file_system.CACHE_PATH, 
+                                              origin_dir, 
+                                              file_system.SEP, 
+                                              file_system.ARTICLE_PIC, 
+                                              file_system.SEP
+                                              ])
+                       )
+    return text.replace('src="pics/', ''.join(['href="', 
+                                              file_system.CACHE_PATH, 
+                                              origin_dir, 
+                                              file_system.SEP, 
+                                              file_system.ARTICLE_FILES, 
+                                              file_system.SEP
+                                              ])
+                       )
+    
+
 def article_html(file_name, origin_dir, merge_data):
     """# make_info: docstring
     args:
@@ -31,9 +64,7 @@ def article_html(file_name, origin_dir, merge_data):
     text = unicode(text, 'utf-8')
     html = md.convert(text)
 
-    html = html.replace('src="pics/', 'src="static/cache/%s/pics/'%origin_dir)
-    html = html.replace('href="pics/', 'href="static/cache/%s/pics/'%origin_dir)
-    html = html.replace('href="files/', 'href="static/cache/%s/files/'%origin_dir)
+    html = change_pic_file_url(html)
 
     tittle, content = html.split('</h1>', 1)
     tittle = tittle.lstrip('<h1>')
@@ -47,9 +78,7 @@ def article_html(file_name, origin_dir, merge_data):
     first_10 = text.replace('\r', '').strip('\n').split('\n')[:10]
     first_10_html = md.convert('\n'.join(first_10))
     first_10_html = first_10_html.split('</h1>', 1)[1]
-    first_10_html = first_10_html.replace('src="pics/', 'src="static/cache/%s/pics/'%origin_dir)
-    first_10_html = first_10_html.replace('href="pics/', 'href="static/cache/%s/pics/'%origin_dir)
-    first_10_html = first_10_html.replace('href="files/', 'href="static/cache/%s/files/'%origin_dir)
+    first_10_html = change_pic_file_url(first_10_html)
 
     merge_data.update({
         'tittle': 'tittle--tittle',
