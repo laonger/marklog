@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source $HOME/.marklog_config
+
+echo -n "Enter the new post's name(only latin letters): "
+read post_name
+
+cd $marklog_local_path \
+    &&
+    mkdir -p "$post_name/pics" \
+    &&
+    mkdir -p "$post_name/files" \
+    &&
+    touch "$post_name/main.mdown"
+
+echo "$marklog_local_path/$post_name"
+
+echo "Done"
+
+exit
+
+

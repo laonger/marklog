@@ -25,30 +25,33 @@ def change_pic_file_url(text):
     returns:
         0    ---    
     """
-    text = text.replace('src="pics/', ''.join(['src="', 
-                                              file_system.CACHE_PATH, 
-                                              origin_dir, 
-                                              file_system.SEP, 
-                                              file_system.ARTICLE_PIC, 
-                                              file_system.SEP
-                                              ])
-                       )
-    text = text.replace('src="pics/', ''.join(['href="',
-                                              file_system.CACHE_PATH, 
-                                              origin_dir, 
-                                              file_system.SEP, 
-                                              file_system.ARTICLE_PIC, 
-                                              file_system.SEP
-                                              ])
-                       )
-    return text.replace('src="pics/', ''.join(['href="', 
-                                              file_system.CACHE_PATH, 
-                                              origin_dir, 
-                                              file_system.SEP, 
-                                              file_system.ARTICLE_FILES, 
-                                              file_system.SEP
-                                              ])
-                       )
+    text = text.replace('src="pics/', ''.join(
+        ['src="', 
+         file_system.CACHE_PATH, 
+         origin_dir, 
+         file_system.SEP, 
+         file_system.ARTICLE_PIC, 
+         file_system.SEP
+        ])
+    )
+    text = text.replace('src="pics/', ''.join(
+        ['href="',
+         file_system.CACHE_PATH, 
+         origin_dir, 
+         file_system.SEP, 
+         file_system.ARTICLE_PIC, 
+         file_system.SEP
+        ])
+    )
+    return text.replace('src="pics/', ''.join(
+        ['href="', 
+         file_system.CACHE_PATH, 
+         origin_dir, 
+         file_system.SEP, 
+         file_system.ARTICLE_FILES, 
+         file_system.SEP
+        ])
+    )
     
 
 def article_html(file_name, origin_dir, merge_data):

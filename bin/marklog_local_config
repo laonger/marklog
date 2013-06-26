@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo -n "Enter the blog's local path: "
+read blog_path
+
+echo "marklog_local_path=$blog_path" > $HOME/.marklog_config
