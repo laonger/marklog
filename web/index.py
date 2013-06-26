@@ -14,6 +14,7 @@ import web
 
 from lib import cache
 from lib import file_system
+from lib import page
 
 from markdown import Markdown
 md = Markdown()
@@ -36,17 +37,6 @@ class SeeOther(object):
         """
         web.seeother("/"+path)
 
-def replace(str, data):
-    """# replace: docstring
-    args:
-        str, data:    ---    arg
-    returns:
-        0    ---    
-    """
-    for k, v in data.iteritems():
-        str = str.replace('{$%s$}'%k, v)
-    return str
-
 def result_html(file_name, css_file, data):
     """# make_html: docstring
     args:
@@ -62,10 +52,10 @@ def result_html(file_name, css_file, data):
     content = unicode(template.read(), 'utf-8')
     template.close()
 
-    content = replace(content, data)
+    content = page.replace(content, data)
 
     web.header('Content-Type', 'text/html; charset=UTF-8')
-    return replace(common, {
+    return page.replace(common, {
         'content': content,
         'css_file': css_file if css_file else 'common.css',
     }).encode('utf-8')

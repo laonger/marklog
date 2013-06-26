@@ -18,7 +18,7 @@ ARTICLE_CACHE_TEMPLATE  = """
     <div class='article_short'>{content}</div>
 """
 
-def change_pic_file_url(text):
+def change_pic_file_url(text, origin_dir):
     """# change_pic_file_url: 将html中的图片和附件路径替换成服务器上的路径
     args:
         text:    ---    arg
@@ -67,7 +67,7 @@ def article_html(file_name, origin_dir, merge_data):
     text = unicode(text, 'utf-8')
     html = md.convert(text)
 
-    html = change_pic_file_url(html)
+    html = change_pic_file_url(html, origin_dir)
 
     tittle, content = html.split('</h1>', 1)
     tittle = tittle.lstrip('<h1>')
@@ -81,7 +81,7 @@ def article_html(file_name, origin_dir, merge_data):
     first_10 = text.replace('\r', '').strip('\n').split('\n')[:10]
     first_10_html = md.convert('\n'.join(first_10))
     first_10_html = first_10_html.split('</h1>', 1)[1]
-    first_10_html = change_pic_file_url(first_10_html)
+    first_10_html = change_pic_file_url(first_10_html, origin_dir)
 
     merge_data.update({
         'tittle': 'tittle--tittle',
