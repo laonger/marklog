@@ -12,12 +12,6 @@ from markdown import Markdown
 
 md = Markdown()
 
-ARTICLE_CACHE_TEMPLATE  = """
-    <div class='tittle'><h1>{tittle}</h1></div>
-    <p id='post_time'>{commit_time}</p>
-    <div class='article_short'>{content}</div>
-"""
-
 def change_pic_file_url(text, origin_dir):
     """# change_pic_file_url: 将html中的图片和附件路径替换成服务器上的路径
     args:
@@ -54,7 +48,7 @@ def change_pic_file_url(text, origin_dir):
     )
     
 
-def article_html(file_name, origin_dir, merge_data):
+def article_html(file_name, origin_dir):
     """# make_info: docstring
     args:
         file_name:    ---    arg
@@ -72,22 +66,10 @@ def article_html(file_name, origin_dir, merge_data):
     tittle, content = html.split('</h1>', 1)
     tittle = tittle.lstrip('<h1>')
 
-    merge_data.update({
-        'tittle': tittle,
-        'content': content,
-    })
-    content = ARTICLE_CACHE_TEMPLATE.format(**merge_data)
-
     first_10 = text.replace('\r', '').strip('\n').split('\n')[:10]
     first_10_html = md.convert('\n'.join(first_10))
     first_10_html = first_10_html.split('</h1>', 1)[1]
     first_10_html = change_pic_file_url(first_10_html, origin_dir)
-
-    merge_data.update({
-        'tittle': 'tittle--tittle',
-        'content': first_10_html,
-    })
-    first_10_html = ARTICLE_CACHE_TEMPLATE.format(**merge_data)
 
     return {
         'article_html': content, 
@@ -116,17 +98,13 @@ def cache_one(commit_info):
 
     article_key = commit_info[5]
 
-    article_info = article_html(mark_down_file, 
-        commit_info[5],
-        {
-            'commit_time': time.ctime(float(commit_info[1])),
-        }
-    )
-
+    commit_time_show = time.ctime(float(commit_info[1]))
+    article_info = article_html(mark_down_file, commit_info[5])
     cache = {
         'first_10_html': article_info['first_10_html'],
         'tittle': article_info['article_tittle'],
         'commit_time': commit_info[1],
+        'commit_time_show': commit_time_show,
         'short_version': commit_info[2],
         'version': commit_info[2],
         'article_key': article_key,
@@ -134,6 +112,7 @@ def cache_one(commit_info):
         'author': commit_info[3],
         'commit_note': commit_info[4],
         'origin_dir': commit_info[5],
+        'article_html': article_info['article_html'],
     }
 
     article_cache_path = get_cache_patch_from_hash(article_key)
@@ -155,9 +134,6 @@ def cache_one(commit_info):
                 + file_system.SEP
             , article_cache_path
                 + file_system.ARTICLE_FILES)
-    html_cache_file = open(article_cache_path + 'html', 'w')
-    html_cache_file.write(article_info['article_html'])
-    html_cache_file.close()
     return cache
 
 def cache_all(increase=False):

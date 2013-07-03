@@ -1,6 +1,16 @@
-        <div id='article'>
-            {$article$}
+$def with (data)
+        <div id='tittle'>
+            <h1>
+                $data["article_data"]["tittle"]
+            </h1>
         </div>
+        <p id='post_time'>
+            $data["article_data"]["commit_time_show"]
+        </p>
+        <div id='article'>
+            $:data["article_data"]["article_html"]
+        </div>
+        <div id='cut_line'></div>
         <div>
             <div id="disqus_thread"></div>
             <script type="text/javascript">

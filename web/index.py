@@ -44,22 +44,14 @@ def result_html(file_name, css_file, data):
     returns:
         0    ---    
     """
-    common_template = open('./templates/common.html', 'r')
-    common = unicode(common_template.read(), 'utf-8')
-    common_template.close()
-
-    template = open(file_name, 'r')
-    content = unicode(template.read(), 'utf-8')
-    template.close()
-
-    content = page.replace(content, data)
-
+    content = web.template.frender('templates/%s'%file_name)
+    c = content(data)
     web.header('Content-Type', 'text/html; charset=UTF-8')
-    return page.replace(common, {
-        'content': content,
+    return web.template.frender('templates/common.html')({
+        'content': c,
         'css_file': css_file if css_file else 'common.css',
-    }).encode('utf-8')
-        
+    })
+
 class Index(object):
     def GET(self):
         cache.auto_fresh()
@@ -70,23 +62,12 @@ class Index(object):
         result = []
         for i in cache_sum.cache_key:
             info = cache_sum.cache_sum[i]
-            first_10_html = info['first_10_html']
-            first_10_html = first_10_html.replace(
-                'tittle--tittle',
-                '<a href="article?a=%s">%s</a>'%(
-                    info['article_key'], info['tittle']
-                )
-            )
-            result.append(
-                '<div class="article_short">'+ first_10_html + '</div><div id="readmore"><a href="article?a=%s">read more....</a></div><div class="cutline"></div>'%info['article_key']
-            )
+            result.append(info)
         
         return result_html(
-            './templates/index.html',
+            'index.html',
             '',
-            {
-                'index_content': ''.join(result)
-            }
+            result
         )
 
 class Article(object):
@@ -94,15 +75,15 @@ class Article(object):
         params = web.input()
         article_key = params.a
 
-        f = open(file_system.CACHE_PATH + article_key + '/html', 'r')
-        data = f.read()
-        f.close()
+        import cache_sum
+
+        data = cache_sum.cache_sum[article_key]
 
         return result_html(
-            './templates/article.html',
+            'article.html',
             'article.css',
             {
-                'article': data,
+                'article_data': data,
             }
         )
 

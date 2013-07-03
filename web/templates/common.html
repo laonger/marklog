@@ -1,7 +1,8 @@
+$def with (data)
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="./static/css/common.css" />
-        <link rel="stylesheet" type="text/css" href="./static/css/{$css_file$}" />
+        <link rel="stylesheet" type="text/css" href="./static/css/$data['css_file']" />
     </head>
     <body>
     <div id='main'>
@@ -19,7 +20,7 @@
             <div class='top_button'>button3</div>
             <div class='top_button'>button4</div>
         </div>
-        <div id='center'>{$content$}</div>
+        <div id='center'>$:data["content"]</div>
         <div id='right'>right</div>
         <div id='bottom'>
             power by marklog

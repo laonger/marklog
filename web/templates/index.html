@@ -1,3 +1,11 @@
+$def with (data)
         <div id='index_content'>
-            {$index_content$}
+        $for i in data:
+            <div class='single_article'>
+                <div class='tittle'><h1><a href='article?a=$i["article_key"]'>$i["tittle"]</a></h1></div>
+                <p class='post_time'>$i["commit_time_show"]</p>
+                <div class='article_short'>$:i["first_10_html"]</div>
+                <div class='cut_line'></div>
+            </div>
         </div>
+             
