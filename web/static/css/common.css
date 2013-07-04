@@ -1,13 +1,33 @@
 body {
-    color: #005701;
+    color: #BDBFBF;
     background-color: #141414;
-    text-size: 12pt;
+    font-size: 12pt;
+    font-family: Hei;
     white-space: normal;
     word-break: normal; 
     word-wrap: break-word;
 }
 
 pre {
+    font-size: 10pt;
+    padding: 10px;
+    border-width: 1px;
+    border-style: dashed;
+}
+
+code {
+}
+
+a {
+    color: #00EBEB;
+}
+
+a:hover {
+    color: #66ffff;
+}
+
+a:visited {
+    color: #338C8D;
 }
 
 #main {

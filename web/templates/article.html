@@ -1,17 +1,21 @@
 $def with (data)
-        <div id='tittle'>
-            <h1>
-                $data["article_data"]["tittle"]
-            </h1>
+$ article_data = data["article_data"]
+        <div id='tittle_line'>
+            <span class='poster'>$article_data["author_name"]</span>
+            <span class='host_name'>@<a href='.'>long-er.name</a>-0:~#</span>
+            <span class='tittle'>
+                <a href='article?a=$article_data["article_key"]'>$article_data["tittle"]</a>
+            </span>
         </div>
-        <p id='post_time'>
-            $data["article_data"]["commit_time_show"]
-        </p>
         <div id='article'>
-            $:data["article_data"]["article_html"]
+            $:article_data["article_html"]
         </div>
-        <div id='cut_line'></div>
-        <div>
+        <div id='cut_line'>
+            <div id='post_time'>$article_data["commit_time_show"]</div>
+            <div id='end_mark'>End</div>
+            <div id='clean' style='clear: both;'></div>
+        </div>
+        <div id='comment'>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
                 /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

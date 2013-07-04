@@ -2,13 +2,46 @@
    font-size: 12pt;
 }
 
-#article h1 {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
+#tittle_line {
+    color: #6F6EEA;
+    font-size: 14pt;
+    padding-top: 20px;
 }
 
-#article pre {
-    font-size: 10pt;
-    border-width: 1px;
-    border-style: dashed;
+#cut_line {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#post_time {
+    width: 50%;
+    float: left;
+    font-size: 14pt;
+    color: #FE66FF;
+}
+
+#end_mark {
+    width: 50%;
+    text-align: right;
+    float: right;
+    font-size: 14pt;
+}
+
+.poster {
+    color: #DECE00;
+}
+
+.host_name {
+    color: #948C00;
+}
+
+.host_name a {
+    color: #948C00;
+}
+
+.tittle a {
+    color: #6F6EEA;
+    text-decoration: none;
 }

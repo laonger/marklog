@@ -1,0 +1,49 @@
+.tittle_line {
+    color: #6F6EEA;
+    font-size: 14pt;
+}
+
+.cut_line {
+    border-bottom-width: 2px;
+    border-bottom-style: dotted;
+}
+
+.single_article {
+    padding-top: 40px;
+}
+
+.tittle a {
+    color: #6F6EEA;
+    text-decoration: none;
+}
+
+.poster {
+    color: #DECE00;
+}
+
+.host_name {
+    color: #948C00;
+}
+
+.host_name a {
+    color: #948C00;
+}
+
+.post_time {
+    width: 50%;
+    float: left;
+    font-size: 14pt;
+    color: #FE66FF;
+}
+
+.read_more {
+    width: 50%;
+    text-align: right;
+    float: right;
+    font-size: 14pt;
+}
+
+.clean {
+    clear: both;
+    padding-top: 5px;
+}

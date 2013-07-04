@@ -98,7 +98,7 @@ def cache_one(commit_info):
 
     article_key = commit_info[5]
 
-    commit_time_show = time.ctime(float(commit_info[1]))
+    commit_time_show = time.strftime('%D %H:%M', time.gmtime(float(commit_info[1])))
     article_info = article_html(mark_down_file, commit_info[5])
     cache = {
         'first_10_html': article_info['first_10_html'],

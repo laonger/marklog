@@ -66,7 +66,7 @@ class Index(object):
         
         return result_html(
             'index.html',
-            '',
+            'index.css',
             result
         )
 
