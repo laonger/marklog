@@ -39,7 +39,7 @@ def change_pic_file_url(text, origin_dir):
     )
     return text.replace('src="pics/', ''.join(
         ['href="', 
-         file_system.CACHE_PATH, 
+         file_system.CACHE_URL, 
          origin_dir, 
          file_system.SEP, 
          file_system.ARTICLE_FILES, 
