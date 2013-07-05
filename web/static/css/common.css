@@ -37,68 +37,43 @@ a:visited {
     margin-right: auto;
 }
 
-#banner {
-    color: yellow;
-    background-color: blue;
-    background-image: url(../../static/img/banner.png);
-    background-repeat: no-repeat;
-    height: 170px;
-}
-
-#banner a:link {
-    color: yellow;
-}
-
-#banner a:visited {
-    color: yellow;
-}
-
-#blog_name {
-    padding-top: 25px;
-    padding-left: 100px;
-    font-size: 24pt;
-}
-
-#sub_name {
-    padding-left: 150px;
-    font-size: 20px;
-}
-
-#top_button_bar {
-    height: 40px;   
-    margin-top: 10px;
-    padding-left: 30px;
-    background-color: black;
-}
-
-.top_button {
-    float: left;
-    width: 150px;
-    height: 38px;
-    line-height: 38px;
-    overflow: hidden;
-    border-style: solid;
-    border-width: 1px;
-    text-align: center;
-}
-
 #center {
     width: 700px;
     margin-left: 30px;
     margin-right: 10px;
-    float: left;
+    float: right;
 }
 
 #right {
     width: 170px;
-    margin-right: 10px;
-    float: right;
+    float: left;
+    padding-top: 30px;
+}
+
+#head {
+    padding-left: 40px;
+}
+
+#intro {
+    padding-top: 30px;
+    text-align: center;
+}
+
+#intro #blog_name {
+    font-size: 18pt;
+}
+
+#urls {
+    padding-top: 30px;
+    padding-left: 20px;
 }
 
 
 #bottom {
     clear: both;
-    text-align: right;
+    text-align: left;
     font-size: 10pt;
+    padding-top: 30px;
+    padding-left: 20px;
 }
 
