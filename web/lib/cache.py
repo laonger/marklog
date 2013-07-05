@@ -28,7 +28,7 @@ def change_pic_file_url(text, origin_dir):
          file_system.SEP
         ])
     )
-    text = text.replace('src="pics/', ''.join(
+    text = text.replace('href="pics/', ''.join(
         ['href="',
          file_system.CACHE_URL, 
          origin_dir, 
@@ -37,7 +37,7 @@ def change_pic_file_url(text, origin_dir):
          file_system.SEP
         ])
     )
-    return text.replace('src="pics/', ''.join(
+    return text.replace('href="files/', ''.join(
         ['href="', 
          file_system.CACHE_URL, 
          origin_dir, 
