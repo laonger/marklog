@@ -21,7 +21,7 @@ def change_pic_file_url(text, origin_dir):
     """
     text = text.replace('src="pics/', ''.join(
         ['src="', 
-         file_system.CACHE_PATH, 
+         file_system.CACHE_URL, 
          origin_dir, 
          file_system.SEP, 
          file_system.ARTICLE_PIC, 
@@ -30,7 +30,7 @@ def change_pic_file_url(text, origin_dir):
     )
     text = text.replace('src="pics/', ''.join(
         ['href="',
-         file_system.CACHE_PATH, 
+         file_system.CACHE_URL, 
          origin_dir, 
          file_system.SEP, 
          file_system.ARTICLE_PIC, 
@@ -70,6 +70,7 @@ def article_html(file_name, origin_dir):
     first_10_html = md.convert('\n'.join(first_10))
     first_10_html = first_10_html.split('</h1>', 1)[1]
     first_10_html = change_pic_file_url(first_10_html, origin_dir)
+
 
     return {
         'article_html': content, 
