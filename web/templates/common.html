@@ -8,10 +8,23 @@ $def with (data)
     <div id='main'>
         <div id='right'>
             <div id='head'>
-                <img src="static/img/head.jpg"/>
+                <a href='.'><img src="static/img/head.jpg"/></a>
             </div>
             <div id='intro'>
                 <span id='blog_name'>la.onger</span>
+            </div>
+            <div id='google_search'>
+                <!-- Search Google -->
+                <form method="get" action="http://www.google.com/search">
+                       <input type="text" name="q" class="search" value="" />
+                       <input type="hidden" name="hl" value="en" />
+                       <input type="hidden" name="newwindow" value="1" />
+                       <input type="hidden" name="num" value="100" />
+                       <input type="hidden" name="domains" value="la-onger.long-er.name/blog/" />
+                       <input type="hidden" name="sitesearch" value="la-onger.long-er.name/blog/" />&nbsp;
+                       <input type="submit" name="btnG" value="search" />
+                </form>
+                    <!-- Search Google -->
             </div>
             <div id='urls'>
                 <a href="https://github.com/laonger">projects</a>

@@ -50,6 +50,13 @@ a:visited {
     padding-top: 30px;
 }
 
+#google_search {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+}
+
 #head {
     padding-left: 40px;
 }
